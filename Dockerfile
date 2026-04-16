@@ -26,7 +26,8 @@ RUN curl -fsSL https://claude.ai/install.sh | su claude -c "bash" \
     && chown -R claude:claude /home/claude/.local
 
 # Copy and permission the entrypoint WHILE STILL ROOT
-COPY --chmod=755 entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Switch to non-root user AFTER file permissions are set
 ENV PATH="/home/claude/.local/bin:${PATH}"
