@@ -1,0 +1,22 @@
+services:
+  claude-playground:
+    build: .
+    image: claude-code-playground
+    container_name: claude-playground
+    stdin_open: true   # docker run -i
+    tty: true          # docker run -t
+    environment:
+      # Only needed if using Console/API access instead of a Claude subscription.
+      # Leave unset to log in interactively via browser (Pro/Max/Team/Enterprise).
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    volumes:
+      # Your local workspace — files persist on your host machine between sessions.
+      - ./workspace:/workspace
+
+      # Mount host Claude credentials so you stay logged in across container rebuilds.
+      # On Windows, Docker Desktop maps C:\Users\<you> to /c/Users/<you> in the Linux VM.
+      # Set WINDOWS_USERNAME in your .env file, e.g: WINDOWS_USERNAME=Administrador
+      - /c/Users/${WINDOWS_USERNAME}/.claude:/home/claude/.claude
+      - /c/Users/${WINDOWS_USERNAME}/.claude/.claude.json:/home/claude/.claude.json
+
+    working_dir: /workspace
