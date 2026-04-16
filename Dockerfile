@@ -22,7 +22,7 @@ RUN curl -fsSL https://claude.ai/install.sh | su claude -c "bash" \
     && echo 'export PATH="$HOME/.local/bin:$PATH"' >> /home/claude/.profile \
     # Manually symlink the binary since the installer's bin-linking step fails in Docker
     && mkdir -p /home/claude/.local/bin \
-    && ln -sf /home/claude/.local/share/claude/versions/2.1.111 /home/claude/.local/bin/claude \
+    && ln -sf /home/claude/.local/share/claude/versions/* /home/claude/.local/bin/claude \
     && chown -R claude:claude /home/claude/.local
 
 # Copy and permission the entrypoint WHILE STILL ROOT
