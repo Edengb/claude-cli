@@ -114,12 +114,13 @@ The environment is built on a **Debian Slim** image. To ensure a smooth installa
 
 ```
 claude-cli/
-├── Dockerfile          # Debian Slim + official Claude Code native installer (non-root)
-├── docker-compose.yml  # Container config: TTY, env, credential + workspace mounts
-├── entrypoint.sh       # Startup banner and environment check
-├── .env.example        # Template for your local .env
-├── workspace/          # ← Your files live here (mounted from host)
-└── README.md
+  ├── Dockerfile          # Debian Slim + official Claude Code native installer (non-root)
+  ├── docker-compose.yml  # Container config: TTY, env, credential + workspace mounts
+  ├── entrypoint.sh       # Startup banner and environment check
+  ├── .env.example        # Template for your local .env
+  ├── CLAUDE.md           # Persistent instructions Claude loads every session
+  ├── workspace/          # ← Your files live here (mounted from host)
+  └── README.md
 ```
 
 ---
