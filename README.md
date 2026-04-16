@@ -47,23 +47,23 @@ cd claude-cli
 
 ### 2. Create your `.env` file
 
-```DOS
+```bash
+# Windows
 copy .env.example .env
-```
 
-On Windows (PowerShell) or Linux/macOS:
-
-```Bash
+# macOS / Linux
 cp .env.example .env
 ```
 
-Open `.env` and set your Windows username (run `echo %USERNAME%` in CMD to find it):
+Open `.env` and set `CLAUDE_HOME` to your host home directory path:
 
-```env
-WINDOWS_USERNAME=YourWindowsUsername
-```
+| Platform | Value |
+|---|---|
+| Windows | `/c/Users/YourWindowsUsername` |
+| macOS | `/Users/yourusername` |
+| Linux | `/home/yourusername` |
 
-This is used to mount your host `~/.claude` credentials folder into the container,
+This mounts your `~/.claude` credentials and `~/.claude.json` into the container,
 so you stay logged in across container rebuilds — the same approach used in `.devcontainer` setups.
 
 Optionally, if you use Console/API access instead of a Claude subscription:
@@ -93,7 +93,7 @@ claude
 # First run: follow the prompt to log in via browser
 ```
 
-Your credentials are saved to `C:\Users\<you>\.claude` on your host machine,
+Your credentials are saved to `~/.claude` and `~/.claude.json` on your host machine,
 so you only need to log in once.
 
 ---
@@ -104,7 +104,7 @@ The environment is built on a **Debian Slim** image. To ensure a smooth installa
 
 * **Non-Root Execution:** The native installer requires a real home directory to correctly place the binary in `~/.local/bin`.
 
-* **Persistent Auth:** By mounting the host's `.claude` directory, your login session remains active even if you delete or rebuild the container.
+* **Persistent Auth:** By mounting the host's `.claude` directory and `.claude.json` file, your login session remains active even if you delete or rebuild the container.
 
 * **Workspace Sync:** The `/workspace` folder inside the container is linked to your local `workspace/` folder, allowing Claude to see and edit your code in real-time.
 
@@ -133,8 +133,11 @@ claude-cli/
 | `claude "fix the build error"` | Run a one-time task |
 | `claude -p "explain this function"` | One-off query, then exit |
 | `claude -c` | Continue the most recent conversation |
+| `claude --resume` | Pick a specific past session to resume |
+| `claude -c --fork-session` | Branch from the last session without affecting it |
 | `/help` | Show available Claude Code commands |
 | `/login` | Switch accounts inside Claude Code |
+| `/compact` | Summarize context to free up space |
 | `exit` or Ctrl+D | Exit Claude Code or the container |
 
 ---

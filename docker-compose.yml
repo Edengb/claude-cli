@@ -14,9 +14,10 @@ services:
       - ./workspace:/workspace
 
       # Mount host Claude credentials so you stay logged in across container rebuilds.
-      # On Windows, Docker Desktop maps C:\Users\<you> to /c/Users/<you> in the Linux VM.
-      # Set WINDOWS_USERNAME in your .env file, e.g: WINDOWS_USERNAME=Administrador
-      - /c/Users/${WINDOWS_USERNAME}/.claude:/home/claude/.claude
-      - /c/Users/${WINDOWS_USERNAME}/.claude/.claude.json:/home/claude/.claude.json
+      # Set CLAUDE_HOME in your .env file to your home directory path.
+      # Windows example: CLAUDE_HOME=/c/Users/YourUsername
+      # macOS/Linux example: CLAUDE_HOME=/home/yourusername  (or CLAUDE_HOME=~)
+      - ${CLAUDE_HOME}/.claude:/home/claude/.claude
+      - ${CLAUDE_HOME}/.claude.json:/home/claude/.claude.json
 
     working_dir: /workspace
