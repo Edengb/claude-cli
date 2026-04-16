@@ -55,7 +55,7 @@ ANTHROPIC_API_KEY=sk-ant-...
 ### 3. Build the image
 
 ```bash
-docker compose build --no-cache
+docker compose build
 ```
 
 ### 4. Run the playground
