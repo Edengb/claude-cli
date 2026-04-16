@@ -1,6 +1,28 @@
-# claude-cli
+# Claude-cli
 
 A minimal Docker playground to learn and practice [Claude Code CLI](https://code.claude.com/docs/en/overview), following Anthropic's official docs, tutorials, and courses.
+
+---
+
+## 🛡️ Security & Philosophy
+
+This project follows the **"AI Jail"** concept—a security philosophy for running autonomous AI agents. As discussed by **Fabio Akita** in his article [ai-jail: Sandbox para Agentes de IA](https://akitaonrails.com/2026/03/01/ai-jail-sandbox-para-agentes-de-ia-de-shell-script-a-ferramenta-real/), giving an AI agent full access to your host shell is a significant security risk.
+
+### Why use a Sandbox?
+AI agents can execute arbitrary commands, install dependencies (npm/pip), and modify files. Without a sandbox:
+
+* **Credential Leakage:** A hallucinated or malicious command could exfiltrate your `~/.ssh` or `~/.aws` keys.
+* **System Damage:** An accidental `rm -rf` could wipe your host OS instead of just the project folder.
+* **Supply-Chain Risks:** Malicious code hidden in third-party libraries could compromise your entire machine.
+
+
+
+### Docker as your Jail
+While Akita's `ai-jail` tool is optimized for Linux/macOS using `bubblewrap`, this project uses **Docker** to provide a similar "Default Deny" layer for Windows and Cross-Platform users:
+
+* **Isolated Filesystem:** Claude only sees the `/workspace` folder and an ephemeral home directory.
+* **Network Control:** You can monitor and restrict traffic leaving the container.
+* **Persistence Control:** Only the specific `.claude` auth folder is shared, keeping the rest of your home directory invisible.
 
 ---
 
